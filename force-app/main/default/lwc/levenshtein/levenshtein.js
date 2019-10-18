@@ -2,20 +2,20 @@ import { track, LightningElement } from 'lwc';
 
 export default class Levenshtein extends LightningElement {
     
-    @track result = '(input two strings)'
+    @track result = '(input two words)'
 
     handleChange(event){
 
         this[event.target.name] = event.target.value
 
-        if(this.string_1 && this.string_2){
+        if(this.string_1 !== undefined && this.string_2 !== undefined){
             this.result = this.leven(this.string_1, this.string_2)    
         }
     }
 
     // implementation of https://github.com/gustf/js-levenshtein
     leven(a, b){
-                
+        
         function _min(d0, d1, d2, bx, ay){
             return d0 < d1 || d2 < d1
                 ? d0 > d2
@@ -71,14 +71,14 @@ export default class Levenshtein extends LightningElement {
         let bx2;
         let bx3;
 
-        let vector = [];
+        const vector = [];
 
         for (y = 0; y < la; y++) {
             vector.push(y + 1);
             vector.push(a.charCodeAt(offset + y));
         }
 
-        let len = vector.length - 1;
+        const len = vector.length - 1;
 
         for (; x < lb - 3;) {
             bx0 = b.charCodeAt(offset + (d0 = x));
